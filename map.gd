@@ -8,5 +8,4 @@ var resource
 func _ready():
 	set_process(true)
 	resource = preload("res://resource.tscn").instance()
-	for i in range(30):
 		

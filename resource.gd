@@ -7,5 +7,5 @@ extends Node2D
 func _ready():
 	get_node("Area2D").connect("body_enter", self, "add_resource")
 
-func add_resurce():
+func add_resource(body):
 	body.add_child(self)
