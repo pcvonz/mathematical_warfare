@@ -6,9 +6,9 @@
 
 [sub_resource type="NavigationPolygon" id=1]
 
-vertices = Vector2Array(  )
-polygons = [  ]
-outlines = [  ]
+vertices = Vector2Array( -45.2057, -55.6758, -17.9466, -55.6758, -3.99506, -32.2802, -17.9466, -7.81134, -46.0643, -7.81134, -59.8011, -31.8509 )
+polygons = [ IntArray( 0, 1, 2, 3, 4, 5 ) ]
+outlines = [ Vector2Array( -45.2057, -55.6758, -17.9466, -55.6758, -3.99506, -32.2802, -17.9466, -7.81134, -46.0643, -7.81134, -59.8011, -31.8509 ) ]
 
 [node name="Node2D" type="Node2D"]
 
@@ -16,9 +16,11 @@ outlines = [  ]
 
 texture = ExtResource( 1 )
 centered = false
+offset = Vector2( -64, -64 )
 
 [node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="ground"]
 
+transform/pos = Vector2( 0, -0.429283 )
 navpoly = SubResource( 1 )
 enabled = true
 
@@ -27,10 +29,11 @@ enabled = true
 transform/pos = Vector2( 56.6761, 94.2114 )
 texture = ExtResource( 2 )
 centered = false
+offset = Vector2( -64, -64 )
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="wall"]
 
-transform/pos = Vector2( 6.98848, 2.95432 )
+transform/pos = Vector2( -57.0712, -61.0376 )
 build_mode = 0
 polygon = Vector2Array( 11.6627, 5.43021, 38.8696, 5.52467, 52.6619, 28.9528, 38.8696, 52.7588, 10.907, 53.0422, -2.69647, 28.9528 )
 shape_range = Vector2( -1, -1 )
@@ -44,7 +47,7 @@ centered = false
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="water"]
 
-transform/pos = Vector2( 0, 0.631117 )
+transform/pos = Vector2( 0.0724335, 0.54586 )
 build_mode = 0
 polygon = Vector2Array( 18.4157, 7.62619, 45.8081, 7.62619, 59.7352, 31.5561, 45.8081, 55.409, 18.2618, 55.3321, 4.41171, 31.3252 )
 shape_range = Vector2( -1, -1 )
