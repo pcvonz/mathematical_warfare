@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://unit.tscn" type="PackedScene" id=1]
+[ext_resource path="res://team_1_unit.tscn" type="PackedScene" id=2]
+
+[node name="unit" instance=ExtResource( 1 )]
+
+transform/pos = Vector2( 213.627, 143.646 )
+
+[node name="unit" parent="." instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 229.477, 96.2324 )
+
+

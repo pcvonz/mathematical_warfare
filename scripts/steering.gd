@@ -15,7 +15,8 @@ var velocity
 func seek(target, object):
 	var desired_vec = target.get_global_pos() - object.get_global_pos()
 	desired_vec = desired_vec.normalized() * max_speed
-	return(desired_vec - object.get_linear_velocity())
+	#return(desired_vec - object.get_linear_velocity())
+	return(desired_vec - object.get_travel())
 
 
 func _init(mass, max_speed, max_force, max_turn_rate):
