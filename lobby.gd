@@ -13,6 +13,7 @@ func _ready():
 
 # Player info, associate ID to data
 var player_info = {}
+var players_done = []
 
 var my_info = { name = "Nico", favorite_color = Color(255, 0, 255)}
 
@@ -36,12 +37,12 @@ remote func register_player(id, info):
 	if(get_tree().is_network_server()):
 		rpc_id(id, "register_player", 1, my_info)
 		for peer_id in player_info:
-			rpc_id(id, "register_player", peer_id, players[peer_id])
+			rpc_id(id, "register_player", peer_id, player_info[peer_id])
 			
 remote func pre_configure_game():
 	get_tree().set_pause(true) # pre-pause game before players are loaded
 	#load world
-	var world = load(which_level).instance()
+	var world = load("res://unit_test.tscn").instance()
 	get_node("/root").add_child(world)
 	
 	#load my player
