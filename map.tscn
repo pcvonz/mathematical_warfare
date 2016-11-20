@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=9 format=1]
 
 [ext_resource path="res://map.gd" type="Script" id=1]
 [ext_resource path="res://tilemap.tres" type="TileSet" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://team_2_unit.tscn" type="PackedScene" id=4]
 [ext_resource path="res://water.png" type="Texture" id=5]
 [ext_resource path="res://wall.png" type="Texture" id=6]
+[ext_resource path="res://base_1.tscn" type="PackedScene" id=7]
+[ext_resource path="res://base_2.tscn" type="PackedScene" id=8]
 
 [node name="Node2D" type="Node2D"]
 
@@ -56,5 +58,13 @@ texture = ExtResource( 5 )
 [node name="wp_2" type="Sprite" parent="."]
 
 texture = ExtResource( 6 )
+
+[node name="base_1" parent="." instance=ExtResource( 7 )]
+
+transform/pos = Vector2( 628.964, 274.88 )
+
+[node name="base_2" parent="." instance=ExtResource( 8 )]
+
+transform/pos = Vector2( 4318.88, 1980.07 )
 
 

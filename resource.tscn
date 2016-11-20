@@ -45,4 +45,8 @@ focus_mode = 2
 caret/caret_blink = false
 caret/caret_blink_speed = 0.65
 
+[node name="spawn_to" type="Position2D" parent="."]
+
+transform/pos = Vector2( 508.535, 416.261 )
+
 

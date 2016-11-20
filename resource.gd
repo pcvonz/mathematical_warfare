@@ -43,8 +43,9 @@ sync func add_unit(team):
 		unit = load("team_1_unit.tscn").instance()
 	else:
 		unit = load("team_2_unit.tscn").instance()
-	print(unit.max_speed)
+	unit.set_pos(get_pos() + Vector2(-20, -20))
 	get_node("../../../").add_child(unit)
+	unit.move_to(get_node("spawn_to").get_pos())
 
 func add_resource(body):
 	body.add_child(self)

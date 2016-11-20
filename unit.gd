@@ -33,6 +33,7 @@ slave var slave_motion = Vector2()
 slave var slave_rot = 0
 slave var slave_power_level = 30
 var selfref   = weakref(self)
+var spawn_target = null
 func _ready():
 	# Called every time the node is added to the scene.
 	# Initialization here
@@ -69,13 +70,7 @@ func _process(delta):
 	power_label.set_text(str(int(power_level.get_value())))
 	#todo: incorporate player's commands
 	if get_tree().is_network_server():
-		if(wp != null and not wp.is_hidden()):
-			var targetref = weakref(wp)
-			SteeringForce = Steering.seek(targetref, selfref)
-			if(get_global_pos().distance_to(wp.get_global_pos()) < 10):
-				SteeringForce = Steering.seek(selfref, selfref)
-				wp.hide()
-		elif(target != null):
+		if(target != null):
 			var targetref = weakref(target)
 			if(targetref.get_ref()):
 				SteeringForce = Steering.seek(targetref, selfref)
@@ -91,6 +86,12 @@ func _process(delta):
 	#				target = nearby_enemies.pop_front()
 		elif(not nearby_enemies.empty()):
 			target = nearby_enemies.pop_front()
+		elif(wp != null and not wp.is_hidden()):
+			var targetref = weakref(wp)
+			SteeringForce = Steering.seek(targetref, selfref)
+			if(get_global_pos().distance_to(wp.get_global_pos()) < 10):
+				SteeringForce = Steering.seek(selfref, selfref)
+				wp.hide()
 		else:
 			SteeringForce = Steering.seek(selfref, selfref)
 		Vehicle.update(delta, SteeringForce)
