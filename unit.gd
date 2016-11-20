@@ -31,6 +31,7 @@ var wp
 slave var slave_pos = Vector2()
 slave var slave_motion = Vector2()
 slave var slave_rot = 0
+slave var slave_power_level = 30
 var selfref   = weakref(self)
 func _ready():
 	# Called every time the node is added to the scene.
@@ -93,10 +94,13 @@ func _process(delta):
 		rset("slave_motion", Vehicle.velocity*.5)
 		rset("slave_pos", get_pos())
 		rset("slave_rot", get_rot())
+		rset("slave_power_level", power_level.get_value())
 	else:
+		power_level.set_value(slave_power_level)
 		set_pos(slave_pos)
 		set_rot(slave_rot)
-		
+
+
 func increase_level(level_change):
 	var current_level = power_level.get_value()
 	var new_level = current_level + level_change
