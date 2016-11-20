@@ -11,11 +11,12 @@ var enemy_team
 var path
 var cam
 var cam_speed = 20
-var move = Vector2(0,0)
+var move
 func _ready():
 	set_process_input(true)
 	set_process(true)
 	cam = get_node("Camera2D")
+	move = get_global_pos()
 	if(int(get_name()) == get_tree().get_network_unique_id()):
 		cam.make_current()
 	

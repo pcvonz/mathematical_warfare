@@ -106,7 +106,7 @@ func _process(delta):
 		set_rot(slave_rot)
 
 
-func increase_level(level_change):
+sync func increase_level(level_change):
 	var current_level = power_level.get_value()
 	var new_level = current_level + level_change
 	
@@ -135,8 +135,8 @@ func fight(body):
 	if(is_in_group("team_1")):
 		if body.is_in_group("team_2"):
 			if body.get_travel() < get_travel():
-				body.increase_level(-(2+body.force))
+				body.rpc("increase_level", -(2+body.force))
 	else:
 		if body.is_in_group("team_1"):
 			if body.get_travel() < get_travel():
-				body.increase_level(-(2+body.force))
+				body.rpc("increase_level", -(2+body.force))
