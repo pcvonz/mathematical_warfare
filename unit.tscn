@@ -13,7 +13,7 @@ radius = 10.053
 custom_solver_bias = 0.0
 radius = 245.124
 
-[node name="unit" type="KinematicBody2D" groups=[ "unit" ]]
+[node name="unit" type="KinematicBody2D"]
 
 transform/pos = Vector2( 279.753, 277.625 )
 input/pickable = false
