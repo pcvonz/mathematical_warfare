@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://unit.gd" type="Script" id=1]
 [ext_resource path="res://circle.png" type="Texture" id=2]
@@ -6,17 +6,26 @@
 [sub_resource type="CircleShape2D" id=1]
 
 custom_solver_bias = 0.0
-radius = 10.053
+radius = 9.94558
 
 [sub_resource type="CircleShape2D" id=2]
 
 custom_solver_bias = 0.0
 radius = 245.124
 
-[node name="unit" type="KinematicBody2D" groups=[ "unit" ]]
+[sub_resource type="CircleShape2D" id=3]
+
+custom_solver_bias = 0.0
+radius = 72.5608
+
+[node name="unit" type="KinematicBody2D"]
 
 transform/pos = Vector2( 279.753, 277.625 )
+transform/scale = Vector2( 0.2, 0.2 )
 input/pickable = false
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 6.02139, 0, 0, 5.93007, 3.17606, 2.72052 )
+shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
 collision/margin = 0.08
@@ -30,28 +39,6 @@ max_turn_rate = 1.0
 [node name="Sprite" type="Sprite" parent="."]
 
 texture = ExtResource( 2 )
-
-[node name="collide" type="Area2D" parent="."]
-
-editor/display_folded = true
-transform/pos = Vector2( 0.711334, 0.282166 )
-transform/scale = Vector2( 2.53064, 2.52219 )
-input/pickable = true
-shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 2.3794, 0, 0, 2.35116, 0.973953, 0.966759 )
-shapes/0/trigger = false
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-
-[node name="collide_range" type="CollisionShape2D" parent="collide"]
-
-transform/pos = Vector2( 0.973953, 0.966759 )
-transform/scale = Vector2( 2.3794, 2.35116 )
-shape = SubResource( 1 )
-trigger = false
-_update_shape_index = 0
 
 [node name="level_label" type="Label" parent="."]
 
@@ -83,7 +70,7 @@ margin/top = 0.0
 margin/right = 40.0
 margin/bottom = 40.0
 range/min = 0.0
-range/max = 100.0
+range/max = 110.0
 range/step = 1.0
 range/page = 0.0
 range/value = 1.0
@@ -92,7 +79,6 @@ range/rounded = false
 
 [node name="detect" type="Area2D" parent="."]
 
-editor/display_folded = true
 transform/pos = Vector2( 0.711321, 0.282152 )
 transform/scale = Vector2( 2.53064, 2.52219 )
 input/pickable = true
@@ -108,6 +94,32 @@ angular_damp = 1.0
 
 transform/pos = Vector2( 2.20523, -2.4679 )
 shape = SubResource( 2 )
+trigger = false
+_update_shape_index = 0
+
+[node name="collider" type="CollisionShape2D" parent="."]
+
+transform/pos = Vector2( 3.17606, 2.72052 )
+transform/scale = Vector2( 6.02139, 5.93007 )
+shape = SubResource( 1 )
+trigger = false
+_update_shape_index = 0
+
+[node name="fight" type="Area2D" parent="."]
+
+input/pickable = true
+shapes/0/shape = SubResource( 3 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 2.43839, 3.67703 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+
+[node name="fight_range" type="CollisionShape2D" parent="fight"]
+
+transform/pos = Vector2( 2.43839, 3.67703 )
+shape = SubResource( 3 )
 trigger = false
 _update_shape_index = 0
 

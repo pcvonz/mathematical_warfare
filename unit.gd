@@ -13,12 +13,15 @@ var nearby_enemies
 var target
 var power_level
 var power_label
+var fight_range
+var boredom
 
 export var movement_offset = 1
 
 var SteeringForce = Vector2(0,0)
-export var max_speed = 1.0
-export var mass = 50.0 
+var force #for calculating damage
+export var max_speed = 5.0
+export var mass = 10.0 
 export var max_force = 1.0
 export var max_turn_rate = 100.0
 
@@ -31,48 +34,78 @@ func _ready():
 	set_fixed_process(true)
 	Vehicle = Vehicle.new(mass, max_speed, max_force, max_turn_rate)
 	Steering = Steering.new(mass, max_speed, max_force, max_turn_rate)
+	nearby_enemies = Array()
+	target = null
+	force = 0
+	boredom = 0
 	
-	detect_range = get_node("detect")
+	detect       = get_node("detect")
+	fight_range  = get_node("fight")
 	power_label  = get_node("level_label")
 	power_level  = get_node("level_label/level")
-	power_level.set_value(10.0)
+	power_level.set_value(30.0) #default
+	increase_level(0) #scale without modifying level
 	
 	#detect_range = get_node("detect/detect_range")
 	#add_collision_exception_with(detect_range)
-	detect_range.connect("body_enter", self, "add_enemy")
+	detect.connect("body_enter", self, "add_enemy")
+	fight_range.connect("body_enter", self, "fight")
 	#get_node("collide").connect("area_exit", self, "fight")
-	nearby_enemies = Array()
-	target = null
 	pass
 
 func _process(delta):
-	power_label.set_text(str(power_level.get_value()))
+	power_label.set_text(str(int(power_level.get_value())))
 	
 	#todo: incorporate player's commands
 	if(target != null):
 		#print("seek")
-		SteeringForce += Steering.seek(target, self)
+		var targetref = weakref(target)
+		var selfref   = weakref(self)
+		SteeringForce += Steering.seek(targetref, selfref)
 		Vehicle.update(delta, SteeringForce)
 		#set_linear_velocity(Vehicle.velocity)
 		look_at(get_global_pos() - get_travel().normalized())
 		#print (Vehicle.velocity)
-		move(Vehicle.velocity*0.5)
+		move(Vehicle.velocity*5)
+		force = abs(Vehicle.velocity.x + Vehicle.velocity.x)/10 * mass
+		boredom += 1
 		
-		#var targetpos = target.get_pos()
-		#var x_over_y  = targetpos.x / targetpos.y
-		#global_translate(Vector2(x_over_y * 5, (1 - x_over_y) *5))
+		if(boredom == 300):
+			print("tick")
+			boredom = 0
+			nearby_enemies.push_back(target)
+			target = nearby_enemies.pop_front()
+
+		if(target == null):
+			move(Vector2(0,0))
 	elif(not nearby_enemies.empty()):
-		print("no target")
+		#print("no target")
 		target = nearby_enemies.pop_front()
 	else:
 		move(Vector2(movement_offset,0))
 		#print("no enemies")
+		
+func increase_level(level_change):
+	var current_level = power_level.get_value()
+	var new_level = current_level + level_change
 	
-func fight(body):
-	power_level.set_value(power_level.get_value()-1)
+	if(new_level < 2):
+		queue_free()
 	
+	power_level.set_value(new_level)
+	self.scale(Vector2(1 + (level_change/50), 1 + (level_change/50)))
+	mass = new_level
+	max_speed = 50 / new_level
+
 func add_enemy(body):
+	#print("Checking")
 	for group in self.get_groups():
 		if not group in body.get_groups():
-			print("Enemy detected")
+			#print("Enemy detected")
 			nearby_enemies.append(body)
+
+func fight(body):
+	for group in self.get_groups():
+		if not group in body.get_groups():
+			#print(body.force)
+			increase_level(-(2+body.force))

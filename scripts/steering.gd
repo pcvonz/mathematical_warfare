@@ -12,11 +12,13 @@ var max_force
 var velocity
 
 
-func seek(target, object):
-	var desired_vec = target.get_global_pos() - object.get_global_pos()
-	desired_vec = desired_vec.normalized() * max_speed
-	#return(desired_vec - object.get_linear_velocity())
-	return(desired_vec - object.get_travel())
+func seek(targetref, objectref):
+	if(targetref.get_ref() and objectref.get_ref()):
+		var desired_vec = targetref.get_ref().get_global_pos() - objectref.get_ref().get_global_pos()
+		desired_vec = desired_vec.normalized() * max_speed
+		#return(desired_vec - object.get_linear_velocity())
+		return(desired_vec - objectref.get_ref().get_travel())
+	return Vector2(1,1)
 
 
 func _init(mass, max_speed, max_force, max_turn_rate):
