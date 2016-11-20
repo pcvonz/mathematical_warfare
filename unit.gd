@@ -62,20 +62,17 @@ func _ready():
 
 func _process(delta):
 	power_label.set_text(str(int(power_level.get_value())))
-	
 	#todo: incorporate player's commands
 	if get_tree().is_network_server():
-		
-
 		if(target != null):
-            #print("seek")
+			print("seek")
 			var targetref = weakref(target)
 
 			SteeringForce += Steering.seek(targetref, selfref)
             #set_linear_velocity(Vehicle.velocity)
 			look_at(get_global_pos() - get_travel().normalized())
             #print (Vehicle.velocity)
-			move(Vehicle.velocity*5)
+			move(Vehicle.velocity)
 			force = abs(Vehicle.velocity.x + Vehicle.velocity.x)/10 * mass
 			boredom += 1
 			if(boredom == 300):
@@ -83,14 +80,8 @@ func _process(delta):
 				boredom = 0
 				nearby_enemies.push_back(target)
 				target = nearby_enemies.pop_front()
-			if(target == null):
-				move(Vector2(0,0))
-			elif(not nearby_enemies.empty()):
-            #print("no target")
-				target = nearby_enemies.pop_front()
-			else:
-				move(Vector2(movement_offset,0))
-            #print("no enemies")
+		elif(not nearby_enemies.empty()):
+			target = nearby_enemies.pop_front()
 		elif(wp != null and not wp.is_hidden()):
 			var targetref = weakref(wp)
 			SteeringForce += Steering.seek(targetref, selfref)
@@ -119,10 +110,8 @@ func increase_level(level_change):
 	max_speed = 50 / new_level
 
 func add_enemy(body):
-	#print("Checking")
 	for group in self.get_groups():
 		if not group in body.get_groups():
-			#print("Enemy detected")
 			nearby_enemies.append(body)
 
 func fight(body):
