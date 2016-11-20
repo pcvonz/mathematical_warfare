@@ -59,10 +59,10 @@ func _ready():
 	#get_node("collide").connect("area_exit", self, "fight")
 	nearby_enemies = Array()
 	target = null
-	for i in get_tree().get_nodes_in_group("team_1"):
-		add_collision_exception_with(i)
-	for i in get_tree().get_nodes_in_group("team_2"):
-		add_collision_exception_with(i)
+#	for i in get_tree().get_nodes_in_group("team_1"):
+#		add_collision_exception_with(i)
+#	for i in get_tree().get_nodes_in_group("team_2"):
+#		add_collision_exception_with(i)
 
 
 func _process(delta):

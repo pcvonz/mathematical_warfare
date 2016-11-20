@@ -31,8 +31,8 @@ collision/mask = 1
 collision/margin = 0.08
 script/script = ExtResource( 1 )
 movement_offset = 1
-max_speed = 1.0
-mass = 50.0
+max_speed = 20.0
+mass = 0.1
 max_force = 1.0
 max_turn_rate = 1.0
 

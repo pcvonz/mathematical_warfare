@@ -9,11 +9,27 @@ var test
 var team
 var enemy_team
 var path
+var cam
+var cam_speed = 20
+var move = Vector2(0,0)
 func _ready():
-	# Called every time the node is added to the scene.
-	# Initialization here
 	set_process_input(true)
-
+	set_process(true)
+	cam = get_node("Camera2D")
+	if(int(get_name()) == get_tree().get_network_unique_id()):
+		cam.make_current()
+	
+func _process(delta):
+	
+	if(Input.is_action_pressed("camera_right")):
+		move += Vector2(cam_speed, 0)
+	if(Input.is_action_pressed("camera_left")):
+		move += Vector2(-cam_speed, 0)
+	if(Input.is_action_pressed("camera_up")):
+		move += Vector2(0, -cam_speed)
+	if(Input.is_action_pressed("camera_down")):
+		move += Vector2(0, cam_speed)
+	cam.set_global_pos(move)
 func set_variables(team, enemy_team, path):
 	self.team = team
 	self.enemy_team = enemy_team
@@ -35,7 +51,7 @@ remote func set_wp(pos, team, path):
 	get_node(path).set_global_pos(pos)
 	get_node(path).show()
 	print(get_tree().is_network_server())
-	get_node(path).show()	
+	get_node(path).show()
 	if(get_tree().is_network_server()):
 		for i in get_tree().get_nodes_in_group(enemy_team):
 			i.wp = get_node(path)
@@ -43,6 +59,7 @@ remote func set_wp(pos, team, path):
 
 func _input(event):
 	if event.is_action_released("go_to"):
+#		if(get_global_mouse_pos().y < 750):
 		get_node(path).set_global_pos(get_global_mouse_pos())
 		get_node(path).show()
 		call(get_global_mouse_pos())

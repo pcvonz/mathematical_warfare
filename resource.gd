@@ -1,11 +1,50 @@
-extends Node2D
+extends Control
 
 # class member variables go here, for example:
 # var a = 2
 # var b = "textvar"
+var num_1
+var num_2
 
 func _ready():
-	get_node("Area2D").connect("body_enter", self, "add_resource")
+	random_problem()
+	set_process_input(true)
+	get_node("LineEdit").connect("mouse_enter", self, "mouse_enter")
+	get_node("LineEdit").connect("mouse_exit", self, "mouse_exit")
+	
+func mouse_enter():
+	get_node("LineEdit").set_editable(true)
+	get_node("LineEdit").grab_focus()
+	print("hello")
+
+func mouse_exit():
+	print("hello")
+	get_node("LineEdit").set_editable(false)
+
+func random_problem():
+	randomize()
+	num_1 = round(rand_range(0, 50))
+	randomize()
+	num_2 = round(rand_range(0, 50))
+	var string = str(num_1) + "+" + str(num_2) + "="
+	get_node("Label").set_text(string)
+
+func _input(event):
+	if(event.is_action_pressed("ui_accept")):
+		var answer = get_node("LineEdit").get_text()
+		get_node("LineEdit").set_text("")	
+		if (int(answer) == (num_1 + num_2)):
+			random_problem()
+			rpc("add_unit", get_parent().team)
+
+sync func add_unit(team):
+	var unit
+	if(team == "team_1"):
+		unit = load("team_1_unit.tscn").instance()
+	else:
+		unit = load("team_2_unit.tscn").instance()
+	print(unit.max_speed)
+	get_node("../../../").add_child(unit)
 
 func add_resource(body):
 	body.add_child(self)

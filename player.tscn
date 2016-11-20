@@ -1,10 +1,15 @@
-[gd_scene load_steps=2 format=1]
+[gd_scene load_steps=3 format=1]
 
 [ext_resource path="res://player.gd" type="Script" id=1]
+[ext_resource path="res://resource.tscn" type="PackedScene" id=2]
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D" type="Node2D" groups=[ "players" ]]
 
 script/script = ExtResource( 1 )
+
+[node name="Node2D" parent="." instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 337.249, 337.582 )
 
 [node name="name" type="Label" parent="."]
 
@@ -12,13 +17,33 @@ focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 40.0
-margin/bottom = 14.0
+margin/left = -582.0
+margin/top = -384.0
+margin/right = -542.0
+margin/bottom = -370.0
 text = "name"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 1, 1 )
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 10000000
+limit/smoothed = false
+drag_margin/h_enabled = true
+drag_margin/v_enabled = true
+smoothing/enable = false
+smoothing/speed = 5.0
+drag_margin/left = 0.2
+drag_margin/top = 0.2
+drag_margin/right = 0.2
+drag_margin/bottom = 0.2
 
 

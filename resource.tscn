@@ -1,14 +1,17 @@
-[gd_scene load_steps=3 format=1]
+[gd_scene load_steps=2 format=1]
 
 [ext_resource path="res://resource.gd" type="Script" id=1]
 
-[sub_resource type="RectangleShape2D" id=1]
+[node name="Node2D" type="Control"]
 
-custom_solver_bias = 0.0
-extents = Vector2( 3.47288, 3.50491 )
-
-[node name="Node2D" type="Node2D"]
-
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
 script/script = ExtResource( 1 )
 
 [node name="Label" type="Label" parent="."]
@@ -17,33 +20,29 @@ focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 40.0
-margin/bottom = 14.0
+margin/left = 25.0
+margin/top = 16.0
+margin/right = 65.0
+margin/bottom = 30.0
 text = "+"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="LineEdit" type="LineEdit" parent="."]
 
-transform/pos = Vector2( 0.153549, 0 )
-transform/scale = Vector2( 1.0048, 1 )
-input/pickable = true
-shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 3.32921, 6.50119 )
-shapes/0/trigger = false
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-
-transform/pos = Vector2( 3.32921, 6.50119 )
-shape = SubResource( 1 )
-trigger = false
-_update_shape_index = 0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 157.0
+margin/top = 10.0
+margin/right = 215.0
+margin/bottom = 34.0
+placeholder/alpha = 0.6
+expand_to_len = false
+focus_mode = 2
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
 
 

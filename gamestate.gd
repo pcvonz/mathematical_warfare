@@ -84,8 +84,8 @@ remote func pre_start_game(spawn_points):
 		var spawn_pos = world.get_node("spawn_points/" + str(spawn_points[p_id])).get_pos()
 		var player = player_scene.instance()
 		player.set_name(str(p_id))
+		#if network server, hide other players ui
 		player.set_pos(spawn_pos)
-		
 		if (p_id == get_tree().get_network_unique_id()):
 			#if node for this peer id, set master
 			player.set_network_mode(NETWORK_MODE_MASTER)
@@ -96,6 +96,10 @@ remote func pre_start_game(spawn_points):
 			player.set_player_name(players[p_id])
 	
 		world.get_node("players").add_child(player)
+	for i in get_tree().get_nodes_in_group("players"):
+		if int(i.get_name()) != get_tree().get_network_unique_id():
+			i.hide()
+		
 		
 	#Tell server you're ready to start
 	if not get_tree().is_network_server():
