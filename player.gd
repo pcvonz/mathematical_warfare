@@ -41,5 +41,6 @@ remote func set_wp(pos, team, path):
 
 func _input(event):
 	if event.is_action_released("go_to"):
+		get_node(path).show()
 		call(get_global_mouse_pos())
 		

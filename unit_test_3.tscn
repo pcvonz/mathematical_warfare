@@ -8,119 +8,13 @@
 
 [node name="unit1" parent="." groups=[ "unit" ] instance=ExtResource( 1 )]
 
-transform/pos = Vector2( 644.043, 159.792 )
-transform/scale = Vector2( 0.2, 0.2 )
-input/pickable = false
-collision/layers = 1
-collision/mask = 1
-collision/margin = 0.08
-script/script = ExtResource( 2 )
-movement_offset = -1
-max_speed = 1.0
-mass = 5.0
-max_force = 1.0
-max_turn_rate = 1.0
-
-[node name="unit3" parent="." groups=[ "unit" ] instance=ExtResource( 1 )]
-
-transform/pos = Vector2( 637.395, 335.969 )
-transform/scale = Vector2( 0.2, 0.2 )
-input/pickable = false
-collision/layers = 1
-collision/mask = 1
-collision/margin = 0.08
-script/script = ExtResource( 2 )
-movement_offset = -1
-max_speed = 1.0
-mass = 5.0
-max_force = 1.0
-max_turn_rate = 1.0
-
-[node name="unit4" parent="." groups=[ "unit" ] instance=ExtResource( 1 )]
-
-transform/pos = Vector2( 706.093, 222.95 )
+transform/pos = Vector2( 635.052, 187.087 )
 transform/scale = Vector2( 0.2, 0.2 )
 movement_offset = -1
 
 [node name="unit2" parent="." groups=[ "unit" ] instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 786.979, 368.102 )
-transform/scale = Vector2( 0.2, 0.2 )
-input/pickable = false
-collision/layers = 1
-collision/mask = 1
-collision/margin = 0.08
-script/script = ExtResource( 2 )
-movement_offset = -1
-max_speed = 1.0
-mass = 50.0
-max_force = 1.0
-max_turn_rate = 1.0
-
-[node name="unit6" parent="." groups=[ "unit" ] instance=ExtResource( 1 )]
-
-transform/pos = Vector2( 634.071, 464.501 )
-transform/scale = Vector2( 0.2, 0.2 )
-input/pickable = false
-collision/layers = 1
-collision/mask = 1
-collision/margin = 0.08
-script/script = ExtResource( 2 )
-movement_offset = -1
-max_speed = 1.0
-mass = 49.836
-max_force = 1.0
-max_turn_rate = 1.0
-
-[node name="unit2" parent="." groups=[ "unit" ] instance=ExtResource( 3 )]
->>>>>>> ff29fa860aa31605ee02a4782bed046d6753ed11
-
-transform/pos = Vector2( 145.455, 303.294 )
-transform/scale = Vector2( 0.2, 0.2 )
-input/pickable = false
-collision/layers = 1
-collision/mask = 1
-collision/margin = 0.08
-script/script = ExtResource( 2 )
-movement_offset = 1
-max_speed = 5.0
-mass = 1.0
-max_force = 1.0
-max_turn_rate = 14.274
-
-[node name="unit7" parent="." groups=[ "unit" ] instance=ExtResource( 3 )]
-
-transform/pos = Vector2( 145.455, 60.6353 )
-transform/scale = Vector2( 0.2, 0.2 )
-input/pickable = false
-collision/layers = 1
-collision/mask = 1
-collision/margin = 0.08
-script/script = ExtResource( 2 )
-movement_offset = 1
-max_speed = 5.0
-mass = 1.0
-max_force = 1.0
-max_turn_rate = 14.274
-
-[node name="unit8" parent="." groups=[ "unit" ] instance=ExtResource( 3 )]
-
-transform/pos = Vector2( 141.023, 507.172 )
-transform/scale = Vector2( 0.2, 0.2 )
-input/pickable = false
-collision/layers = 1
-collision/mask = 1
-collision/margin = 0.08
-script/script = ExtResource( 2 )
-movement_offset = 1
-max_speed = 5.0
-mass = 1.0
-max_force = 1.0
-max_turn_rate = 14.274
-
-[node name="unit9" parent="." groups=[ "unit" ] instance=ExtResource( 3 )]
-
-transform/pos = Vector2( 21.356, 210.22 )
+transform/pos = Vector2( 251.95, 292.464 )
 transform/scale = Vector2( 0.2, 0.2 )
 input/pickable = false
 collision/layers = 1
@@ -135,7 +29,7 @@ max_turn_rate = 14.274
 
 [node name="unit21" parent="." groups=[ "unit" ] instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 970.625, 309.912 )
+transform/pos = Vector2( 538.976, 374.459 )
 transform/scale = Vector2( 0.2, 0.2 )
 input/pickable = false
 collision/layers = 1
@@ -143,9 +37,9 @@ collision/mask = 1
 collision/margin = 0.08
 script/script = ExtResource( 3 )
 movement_offset = -1
-max_speed = 12.331
-mass = 5.0
+max_speed = 1.0
+mass = 50.0
 max_force = 1.0
-max_turn_rate = 17.729
+max_turn_rate = 1.0
 
 

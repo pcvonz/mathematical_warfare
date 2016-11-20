@@ -21,7 +21,7 @@ export var movement_offset = 1
 var SteeringForce = Vector2(0,0)
 var force #for calculating damage
 export var max_speed = 5.0
-export var mass = 10.0 
+export var mass = 10.0
 export var max_force = 1.0
 export var max_turn_rate = 100.0
 var way_point = false
@@ -31,7 +31,7 @@ var wp
 slave var slave_pos = Vector2()
 slave var slave_motion = Vector2()
 slave var slave_rot = 0
-
+var selfref   = weakref(self)
 func _ready():
 	# Called every time the node is added to the scene.
 	# Initialization here
@@ -65,33 +65,38 @@ func _process(delta):
 	
 	#todo: incorporate player's commands
 	if get_tree().is_network_server():
-        if(target != null):
+		
+		if(wp != null and not wp.is_hidden()):
+			var targetref = weakref(wp)
+			SteeringForce += Steering.seek(targetref, selfref)
+			if(get_global_pos().distance_to(wp.get_global_pos()) < 10):
+				SteeringForce -= SteeringForce
+				wp.hide()
+		elif(target != null):
             #print("seek")
-            var targetref = weakref(target)
-            var selfref   = weakref(self)
-            SteeringForce += Steering.seek(targetref, selfref)
-            Vehicle.update(delta, SteeringForce)
-            #set_linear_velocity(Vehicle.velocity)
-            look_at(get_global_pos() - get_travel().normalized())
-            #print (Vehicle.velocity)
-            move(Vehicle.velocity*5)
-            force = abs(Vehicle.velocity.x + Vehicle.velocity.x)/10 * mass
-            boredom += 1
-            
-            if(boredom == 300):
-                print("tick")
-                boredom = 0
-                nearby_enemies.push_back(target)
-                target = nearby_enemies.pop_front()
+			var targetref = weakref(target)
 
-            if(target == null):
-                move(Vector2(0,0))
-        elif(not nearby_enemies.empty()):
+			SteeringForce += Steering.seek(targetref, selfref)
+            #set_linear_velocity(Vehicle.velocity)
+			look_at(get_global_pos() - get_travel().normalized())
+            #print (Vehicle.velocity)
+			move(Vehicle.velocity*5)
+			force = abs(Vehicle.velocity.x + Vehicle.velocity.x)/10 * mass
+			boredom += 1
+			if(boredom == 300):
+				print("tick")
+				boredom = 0
+				nearby_enemies.push_back(target)
+				target = nearby_enemies.pop_front()
+			if(target == null):
+				move(Vector2(0,0))
+			elif(not nearby_enemies.empty()):
             #print("no target")
-            target = nearby_enemies.pop_front()
-        else:
-            move(Vector2(movement_offset,0))
+				target = nearby_enemies.pop_front()
+			else:
+				move(Vector2(movement_offset,0))
             #print("no enemies")
+		Vehicle.update(delta, SteeringForce)
 		move(Vehicle.velocity*0.5)
 		rset("slave_motion", Vehicle.velocity*.5)
 		rset("slave_pos", get_pos())
