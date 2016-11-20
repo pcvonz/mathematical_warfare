@@ -59,39 +59,42 @@ func _ready():
 	#get_node("collide").connect("area_exit", self, "fight")
 	nearby_enemies = Array()
 	target = null
+	for i in get_tree().get_nodes_in_group(get_groups()[0]):
+		add_collision_exception_with(i)
 
 
 func _process(delta):
 	power_label.set_text(str(int(power_level.get_value())))
 	#todo: incorporate player's commands
 	if get_tree().is_network_server():
-		if(target != null):
-			print("seek")
-			var targetref = weakref(target)
-
-			SteeringForce += Steering.seek(targetref, selfref)
-            #set_linear_velocity(Vehicle.velocity)
-			look_at(get_global_pos() - get_travel().normalized())
-            #print (Vehicle.velocity)
-			move(Vehicle.velocity)
-			force = abs(Vehicle.velocity.x + Vehicle.velocity.x)/10 * mass
-			boredom += 1
-			if(boredom == 300):
-				print("tick")
-				boredom = 0
-				nearby_enemies.push_back(target)
-				target = nearby_enemies.pop_front()
-		elif(not nearby_enemies.empty()):
-			target = nearby_enemies.pop_front()
-		elif(wp != null and not wp.is_hidden()):
+		if(wp != null and not wp.is_hidden()):
 			var targetref = weakref(wp)
 			SteeringForce += Steering.seek(targetref, selfref)
 			if(get_global_pos().distance_to(wp.get_global_pos()) < 10):
 				SteeringForce -= SteeringForce
 				wp.hide()
+		elif(target != null):
+			var targetref = weakref(target)
+			if(targetref.get_ref()):
+				SteeringForce += Steering.seek(targetref, selfref)
+	            #set_linear_velocity(Vehicle.velocity)
+				look_at(get_global_pos() - get_travel().normalized())
+	            #print (Vehicle.velocity)
+	#			move(Vehicle.velocity)
+	#			force = abs(Vehicle.velocity.x)/10 * mass
+	#			boredom += 1
+	#			if(boredom == 300):
+	#				print("tick")
+	#				boredom = 0
+	#				nearby_enemies.push_back(target)
+	#				target = nearby_enemies.pop_front()
+		elif(not nearby_enemies.empty()):
+			target = nearby_enemies.pop_front()
+		else:
+			SteeringForce += Steering.seek(selfref, selfref)
 		Vehicle.update(delta, SteeringForce)
-		move(Vehicle.velocity*0.5)
-		rset("slave_motion", Vehicle.velocity*.5)
+		move(Vehicle.velocity)
+		rset("slave_motion", Vehicle.velocity)
 		rset("slave_pos", get_pos())
 		rset("slave_rot", get_rot())
 		rset("slave_power_level", power_level.get_value())
@@ -111,15 +114,21 @@ func increase_level(level_change):
 	power_level.set_value(new_level)
 	self.scale(Vector2(1 + (level_change/50), 1 + (level_change/50)))
 	mass = new_level
-	max_speed = 50 / new_level
+#	max_speed = max_speed / new_level
 
 func add_enemy(body):
-	for group in self.get_groups():
-		if not group in body.get_groups():
+	if(is_in_group("team_1")):
+		if body.is_in_group("team_2"):
 			nearby_enemies.append(body)
+	else:
+		if body.is_in_group("team_1"):
+			nearby_enemies.append(body)
+			
 
 func fight(body):
-	for group in self.get_groups():
-		if not group in body.get_groups():
-			#print(body.force)
+	if(is_in_group("team_1")):
+		if body.is_in_group("team_2"):
+			increase_level(-(2+body.force))
+	else:
+		if body.is_in_group("team_1"):
 			increase_level(-(2+body.force))

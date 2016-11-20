@@ -3,7 +3,7 @@
 [ext_resource path="res://unit.gd" type="Script" id=1]
 [ext_resource path="res://circle.png" type="Texture" id=2]
 
-[sub_resource type="CircleShape2D" id=4]
+[sub_resource type="CircleShape2D" id=1]
 
 custom_solver_bias = 0.0
 radius = 10.0488
@@ -23,7 +23,7 @@ radius = 72.5608
 transform/pos = Vector2( 279.753, 277.625 )
 transform/scale = Vector2( 0.2, 0.2 )
 input/pickable = false
-shapes/0/shape = SubResource( 4 )
+shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 6.02139, 0, 0, 5.93007, 3.17615, 2.72046 )
 shapes/0/trigger = false
 collision/layers = 1
@@ -40,7 +40,7 @@ max_turn_rate = 1.0
 
 transform/pos = Vector2( 3.17615, 2.72046 )
 transform/scale = Vector2( 6.02139, 5.93007 )
-shape = SubResource( 4 )
+shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
