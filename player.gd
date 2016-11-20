@@ -33,7 +33,9 @@ func call(pos):
 
 remote func set_wp(pos, team, path):
 	get_node(path).set_global_pos(pos)
+	get_node(path).show()
 	print(get_tree().is_network_server())
+	get_node(path).show()	
 	if(get_tree().is_network_server()):
 		for i in get_tree().get_nodes_in_group(enemy_team):
 			i.wp = get_node(path)
@@ -41,7 +43,7 @@ remote func set_wp(pos, team, path):
 
 func _input(event):
 	if event.is_action_released("go_to"):
-		get_node(path).show()
 		get_node(path).set_global_pos(get_global_mouse_pos())
+		get_node(path).show()
 		call(get_global_mouse_pos())
 		

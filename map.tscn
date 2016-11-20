@@ -61,7 +61,6 @@ texture = ExtResource( 5 )
 
 [node name="wp_2" type="Sprite" parent="."]
 
-visibility/visible = false
 texture = ExtResource( 6 )
 
 
