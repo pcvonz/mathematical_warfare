@@ -41,11 +41,12 @@ sync func add_unit(team):
 	var unit
 	if(team == "team_1"):
 		unit = load("team_1_unit.tscn").instance()
+		unit.set_global_pos(get_node("../../../spawn_points/0").get_global_pos())
 	else:
 		unit = load("team_2_unit.tscn").instance()
-	unit.set_pos(get_pos() + Vector2(-20, -20))
+		unit.set_global_pos(get_node("../../../spawn_points/1").get_global_pos())
 	get_node("../../../").add_child(unit)
-	unit.move_to(get_node("spawn_to").get_pos())
+	unit.move_to(get_node("spawn_to").get_pos() + Vector2(20, 20))
 
 func add_resource(body):
 	body.add_child(self)

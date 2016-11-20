@@ -35,13 +35,13 @@ tile_data = IntArray( 0, 2, 1, 2, 2, 2, 3, 2, 4, 2, 5, 2, 6, 2, 7, 2, 8, 2, 9, 2
 
 [node name="0" type="Position2D" parent="spawn_points"]
 
-transform/pos = Vector2( 7.1916, 9.4422 )
+transform/pos = Vector2( 277.192, 469.442 )
 transform/rot = 180.0
 transform/scale = Vector2( 1, 1.18427 )
 
 [node name="1" type="Position2D" parent="spawn_points"]
 
-transform/pos = Vector2( 4215.79, 1997.7 )
+transform/pos = Vector2( 3965.79, 1797.7 )
 
 [node name="players" type="Node2D" parent="."]
 
