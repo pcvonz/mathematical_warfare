@@ -22,11 +22,16 @@ func mouse_exit():
 	get_node("LineEdit").set_editable(false)
 
 func random_problem():
+	var symbol
 	randomize()
 	num_1 = round(rand_range(0, 50))
 	randomize()
-	num_2 = round(rand_range(0, 50))
-	var string = str(num_1) + "+" + str(num_2) + "="
+	num_2 = round(rand_range(-50, 50))
+	if(num_2 < 0):
+		symbol = ""
+	else:
+		symbol = " + "
+	var string = str(num_1) + symbol + str(num_2) + "="
 	get_node("Label").set_text(string)
 
 func _input(event):
