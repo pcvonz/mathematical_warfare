@@ -1,54 +1,25 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=3 format=1]
 
 [ext_resource path="res://team_1_unit.tscn" type="PackedScene" id=1]
-[ext_resource path="res://unit.gd" type="Script" id=2]
-[ext_resource path="res://team_2_unit.tscn" type="PackedScene" id=3]
+[ext_resource path="res://team_2_unit.tscn" type="PackedScene" id=2]
 
 [node name="Node2d" type="Node2D"]
 
 [node name="unit1" parent="." groups=[ "unit" ] instance=ExtResource( 1 )]
 
 transform/pos = Vector2( 635.052, 187.087 )
-transform/scale = Vector2( 0.2, 0.2 )
-input/pickable = false
-collision/layers = 1
-collision/mask = 1
-collision/margin = 0.08
-script/script = ExtResource( 2 )
 movement_offset = -1
-max_speed = 1.0
-mass = 50.0
-max_force = 1.0
-max_turn_rate = 1.0
 
-[node name="unit2" parent="." groups=[ "unit" ] instance=ExtResource( 3 )]
+[node name="unit2" parent="." groups=[ "unit" ] instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 251.95, 292.464 )
-transform/scale = Vector2( 0.2, 0.2 )
-input/pickable = false
-collision/layers = 1
-collision/mask = 1
-collision/margin = 0.08
-script/script = ExtResource( 2 )
-movement_offset = 1
 max_speed = 5.0
 mass = 1.0
-max_force = 1.0
 max_turn_rate = 14.274
 
-[node name="unit21" parent="." groups=[ "unit" ] instance=ExtResource( 3 )]
+[node name="unit21" parent="." groups=[ "unit" ] instance=ExtResource( 2 )]
 
 transform/pos = Vector2( 538.976, 374.459 )
-transform/scale = Vector2( 0.2, 0.2 )
-input/pickable = false
-collision/layers = 1
-collision/mask = 1
-collision/margin = 0.08
-script/script = ExtResource( 2 )
 movement_offset = -1
-max_speed = 1.0
-mass = 50.0
-max_force = 1.0
-max_turn_rate = 1.0
 
 
