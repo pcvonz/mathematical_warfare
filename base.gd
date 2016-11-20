@@ -23,7 +23,7 @@ func damage_base(body):
 	
 #Right now this does damage for each client connected (two clients = 1 damage)
 sync func do_damage():
-	health -= .5
+	health -= 1
 	get_node("Label").set_text(str(health))
 	
 	

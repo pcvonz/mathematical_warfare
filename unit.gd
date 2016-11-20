@@ -41,7 +41,7 @@ func _ready():
 	set_fixed_process(true)
 	Vehicle = Vehicle.new(mass, max_speed, max_force, max_turn_rate)
 	Steering = Steering.new(mass, max_speed, max_force, max_turn_rate)
-	nearby_enemies = Array()
+	nearby_enemies = {}
 	target = null
 	force = 0
 	boredom = 0
@@ -56,36 +56,29 @@ func _ready():
 	#detect_range = get_node("detect/detect_range")
 	#add_collision_exception_with(detect_range)
 	detect.connect("body_enter", self, "add_enemy")
+	detect.connect("body_exit", self, "remove_enemy")
 	fight_range.connect("body_enter", self, "fight")
-	#get_node("collide").connect("area_exit", self, "fight")
-	nearby_enemies = Array()
 	target = null
-#	for i in get_tree().get_nodes_in_group("team_1"):
-#		add_collision_exception_with(i)
-#	for i in get_tree().get_nodes_in_group("team_2"):
-#		add_collision_exception_with(i)
 
 
 func _process(delta):
 	power_label.set_text(str(int(power_level.get_value())))
 	#todo: incorporate player's commands
 	if get_tree().is_network_server():
-		if(target != null):
+		if not nearby_enemies.empty():
+			print("ENEMY")
+			target = nearby_enemies[nearby_enemies.keys()[0]]
 			var targetref = weakref(target)
-			if(targetref.get_ref()):
+			for i in nearby_enemies.keys():
+				var i_ref = weakref(nearby_enemies[i])
+				if i_ref.get_ref() and targetref.get_ref():
+					if get_global_pos().distance_to(nearby_enemies[i].get_global_pos()) < get_global_pos().distance_to(nearby_enemies[target.get_name()].get_global_pos()):
+						target = nearby_enemies[i]
+						targetref = weakref(target)
+				
+			
+			if(targetref.get_ref() and targetref.get_ref().get_type() == "KinematicBody2D"):
 				SteeringForce = Steering.seek(targetref, selfref)
-	            #set_linear_velocity(Vehicle.velocity)
-	            #print (Vehicle.velocity)
-	#			move(Vehicle.velocity)
-				force = abs(Vehicle.velocity.x)/10 * mass
-	#			boredom += 1
-	#			if(boredom == 300):
-	#				print("tick")
-	#				boredom = 0
-	#				nearby_enemies.push_back(target)
-	#				target = nearby_enemies.pop_front()
-		elif(not nearby_enemies.empty()):
-			target = nearby_enemies.pop_front()
 		elif(wp != null and not wp.is_hidden()):
 			var targetref = weakref(wp)
 			SteeringForce = Steering.seek(targetref, selfref)
@@ -119,25 +112,47 @@ sync func increase_level(level_change):
 	self.scale(Vector2(1 + (level_change/50), 1 + (level_change/50)))
 	mass = new_level
 	max_speed = max_speed / new_level
-	
+
+func remove_from_dict(name):
+	if nearby_enemies.has(name):
+		nearby_enemies.erase(name)
+
 sync func kill_self():
+	if(is_in_group("team_1")):
+		for i in get_tree().get_nodes_in_group("team_2"):
+			if i.has_method("remove_from_dict"):
+				i.remove_from_dict(get_name())
+	else:
+		for i in get_tree().get_nodes_in_group("team_1"):
+			if i.has_method("remove_from_dict"):
+				i.remove_from_dict(get_name())
 	queue_free()
+
 
 func add_enemy(body):
 	if(is_in_group("team_1")):
 		if body.is_in_group("team_2"):
-			nearby_enemies.append(body)
+			nearby_enemies[body.get_name()] = body
 	else:
 		if body.is_in_group("team_1"):
-			nearby_enemies.append(body)
-			
+			nearby_enemies[body.get_name()] = body
+
+func remove_enemy(body):
+	if(is_in_group("team_1")):
+		if body.is_in_group("team_2"):
+			nearby_enemies.erase(body.get_name())
+	else:
+		if body.is_in_group("team_1"):
+			nearby_enemies.erase(body.get_name())
 
 func fight(body):
 	if(is_in_group("team_1")):
 		if body.is_in_group("team_2"):
 			if body.get_travel() < get_travel():
+				target = null
 				body.rpc("increase_level", -(2+body.force))
 	else:
 		if body.is_in_group("team_1"):
 			if body.get_travel() < get_travel():
+				target = null
 				body.rpc("increase_level", -(2+body.force))
