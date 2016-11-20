@@ -59,7 +59,9 @@ func _ready():
 	#get_node("collide").connect("area_exit", self, "fight")
 	nearby_enemies = Array()
 	target = null
-	for i in get_tree().get_nodes_in_group(get_groups()[0]):
+	for i in get_tree().get_nodes_in_group("team_1"):
+		add_collision_exception_with(i)
+	for i in get_tree().get_nodes_in_group("team_2"):
 		add_collision_exception_with(i)
 
 
@@ -69,19 +71,18 @@ func _process(delta):
 	if get_tree().is_network_server():
 		if(wp != null and not wp.is_hidden()):
 			var targetref = weakref(wp)
-			SteeringForce += Steering.seek(targetref, selfref)
+			SteeringForce = Steering.seek(targetref, selfref)
 			if(get_global_pos().distance_to(wp.get_global_pos()) < 10):
-				SteeringForce -= SteeringForce
+				SteeringForce = Steering.seek(selfref, selfref)
 				wp.hide()
 		elif(target != null):
 			var targetref = weakref(target)
 			if(targetref.get_ref()):
-				SteeringForce += Steering.seek(targetref, selfref)
+				SteeringForce = Steering.seek(targetref, selfref)
 	            #set_linear_velocity(Vehicle.velocity)
-				look_at(get_global_pos() - get_travel().normalized())
 	            #print (Vehicle.velocity)
 	#			move(Vehicle.velocity)
-	#			force = abs(Vehicle.velocity.x)/10 * mass
+				force = abs(Vehicle.velocity.x)/10 * mass
 	#			boredom += 1
 	#			if(boredom == 300):
 	#				print("tick")
@@ -91,8 +92,9 @@ func _process(delta):
 		elif(not nearby_enemies.empty()):
 			target = nearby_enemies.pop_front()
 		else:
-			SteeringForce += Steering.seek(selfref, selfref)
+			SteeringForce = Steering.seek(selfref, selfref)
 		Vehicle.update(delta, SteeringForce)
+		look_at(get_global_pos() - get_travel().normalized())
 		move(Vehicle.velocity)
 		rset("slave_motion", Vehicle.velocity)
 		rset("slave_pos", get_pos())
@@ -109,12 +111,16 @@ func increase_level(level_change):
 	var new_level = current_level + level_change
 	
 	if(new_level < 2):
-		queue_free()
+		rpc("kill_self")
+		
 	
 	power_level.set_value(new_level)
 	self.scale(Vector2(1 + (level_change/50), 1 + (level_change/50)))
 	mass = new_level
-#	max_speed = max_speed / new_level
+	max_speed = max_speed / new_level
+	
+sync func kill_self():
+	queue_free()
 
 func add_enemy(body):
 	if(is_in_group("team_1")):
@@ -128,7 +134,9 @@ func add_enemy(body):
 func fight(body):
 	if(is_in_group("team_1")):
 		if body.is_in_group("team_2"):
-			increase_level(-(2+body.force))
+			if body.get_travel() < get_travel():
+				body.increase_level(-(2+body.force))
 	else:
 		if body.is_in_group("team_1"):
-			increase_level(-(2+body.force))
+			if body.get_travel() < get_travel():
+				body.increase_level(-(2+body.force))

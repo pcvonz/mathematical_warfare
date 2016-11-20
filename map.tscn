@@ -1,11 +1,12 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://map.gd" type="Script" id=1]
 [ext_resource path="res://tilemap.tres" type="TileSet" id=2]
 [ext_resource path="res://team_1_unit.tscn" type="PackedScene" id=3]
 [ext_resource path="res://team_2_unit.tscn" type="PackedScene" id=4]
-[ext_resource path="res://water.png" type="Texture" id=5]
-[ext_resource path="res://wall.png" type="Texture" id=6]
+[ext_resource path="res://unit.gd" type="Script" id=5]
+[ext_resource path="res://water.png" type="Texture" id=6]
+[ext_resource path="res://wall.png" type="Texture" id=7]
 
 [node name="Node2D" type="Node2D"]
 
@@ -47,21 +48,46 @@ transform/pos = Vector2( 1786.4, 167.5 )
 
 [node name="unit" parent="." instance=ExtResource( 3 )]
 
-max_speed = 3.0
-mass = 4.633
+mass = 0.1
+max_speed = 75.098
+mass = 0.1
+max_force = 13.264
 
 [node name="unit2" parent="." instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 633.221, 421.973 )
-max_speed = 3.0
-mass = 0.32
+transform/scale = Vector2( 0.2, 0.2 )
+input/pickable = false
+collision/layers = 1
+collision/mask = 1
+mode = 0
+mass = 0.1
+friction = 1.0
+bounce = 0.0
+gravity_scale = 1.0
+custom_integrator = false
+continuous_cd = 0
+contacts_reported = 0
+contact_monitor = false
+sleeping = false
+can_sleep = true
+velocity/linear = Vector2( 0, 0 )
+velocity/angular = 0.0
+damp_override/linear = -1.0
+damp_override/angular = -1.0
+script/script = ExtResource( 5 )
+movement_offset = 1
+max_speed = 75.0
+mass = 0.1
+max_force = 1.0
+max_turn_rate = 1.0
 
 [node name="wp_1" type="Sprite" parent="."]
 
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="wp_2" type="Sprite" parent="."]
 
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
 
