@@ -46,12 +46,14 @@ transform/pos = Vector2( 1786.4, 167.5 )
 
 [node name="unit" parent="." instance=ExtResource( 3 )]
 
-max_speed = 10.208
+max_speed = 4.98
+mass = 4.633
 
 [node name="unit2" parent="." instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 633.221, 421.973 )
-max_speed = 14.703
+max_speed = 4.815
+mass = 0.32
 
 [node name="wp_1" type="Sprite" parent="."]
 
@@ -59,6 +61,7 @@ texture = ExtResource( 5 )
 
 [node name="wp_2" type="Sprite" parent="."]
 
+visibility/visible = false
 texture = ExtResource( 6 )
 
 

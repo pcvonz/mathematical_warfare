@@ -4,4 +4,9 @@
 
 [node name="unit" groups=[ "team_1" ] instance=ExtResource( 1 )]
 
+[node name="collider" parent="."]
+
+transform/pos = Vector2( 3.17615, 2.72046 )
+transform/scale = Vector2( 6.02139, 5.93007 )
+
 

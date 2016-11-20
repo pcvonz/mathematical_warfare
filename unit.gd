@@ -66,13 +66,8 @@ func _process(delta):
 	#todo: incorporate player's commands
 	if get_tree().is_network_server():
 		
-		if(wp != null and not wp.is_hidden()):
-			var targetref = weakref(wp)
-			SteeringForce += Steering.seek(targetref, selfref)
-			if(get_global_pos().distance_to(wp.get_global_pos()) < 10):
-				SteeringForce -= SteeringForce
-				wp.hide()
-		elif(target != null):
+
+		if(target != null):
             #print("seek")
 			var targetref = weakref(target)
 
@@ -96,6 +91,12 @@ func _process(delta):
 			else:
 				move(Vector2(movement_offset,0))
             #print("no enemies")
+		elif(wp != null and not wp.is_hidden()):
+			var targetref = weakref(wp)
+			SteeringForce += Steering.seek(targetref, selfref)
+			if(get_global_pos().distance_to(wp.get_global_pos()) < 10):
+				SteeringForce -= SteeringForce
+				wp.hide()
 		Vehicle.update(delta, SteeringForce)
 		move(Vehicle.velocity*0.5)
 		rset("slave_motion", Vehicle.velocity*.5)

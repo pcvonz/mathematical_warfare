@@ -3,10 +3,10 @@
 [ext_resource path="res://unit.gd" type="Script" id=1]
 [ext_resource path="res://circle.png" type="Texture" id=2]
 
-[sub_resource type="CircleShape2D" id=1]
+[sub_resource type="CircleShape2D" id=4]
 
 custom_solver_bias = 0.0
-radius = 9.94558
+radius = 10.0488
 
 [sub_resource type="CircleShape2D" id=2]
 
@@ -23,8 +23,8 @@ radius = 72.5608
 transform/pos = Vector2( 279.753, 277.625 )
 transform/scale = Vector2( 0.2, 0.2 )
 input/pickable = false
-shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 6.02139, 0, 0, 5.93007, 3.17606, 2.72052 )
+shapes/0/shape = SubResource( 4 )
+shapes/0/transform = Matrix32( 6.02139, 0, 0, 5.93007, 3.17615, 2.72046 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -35,6 +35,14 @@ max_speed = 1.0
 mass = 50.0
 max_force = 1.0
 max_turn_rate = 1.0
+
+[node name="collider" type="CollisionShape2D" parent="."]
+
+transform/pos = Vector2( 3.17615, 2.72046 )
+transform/scale = Vector2( 6.02139, 5.93007 )
+shape = SubResource( 4 )
+trigger = false
+_update_shape_index = 0
 
 [node name="Sprite" type="Sprite" parent="."]
 
@@ -94,14 +102,6 @@ angular_damp = 1.0
 
 transform/pos = Vector2( 2.20523, -2.4679 )
 shape = SubResource( 2 )
-trigger = false
-_update_shape_index = 0
-
-[node name="collider" type="CollisionShape2D" parent="."]
-
-transform/pos = Vector2( 3.17606, 2.72052 )
-transform/scale = Vector2( 6.02139, 5.93007 )
-shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
 
