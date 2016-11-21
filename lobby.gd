@@ -10,6 +10,8 @@ func _ready():
 	gamestate.connect("player_list_changed", self, "refresh_lobby")
 	gamestate.connect("game_ended", self, "_on_game_ended")
 	gamestate.connect("game_error", self, "_on_game_error")
+	get_tree().connect("network_peer_connected", self, "_player_connected")
+	get_tree().connect("network_peer_disconnected", self,"_player_disconnected")
 
 # Player info, associate ID to data
 var player_info = {}
@@ -17,9 +19,13 @@ var players_done = []
 
 var my_info = { name = "Nico", favorite_color = Color(255, 0, 255)}
 
+func _player_disconnected(id):
+	get_node("disconnect").show()
+	
 func _player_connected(id):
-	print("hooray")
-
+	if(get_tree().is_network_server()):
+		get_node("start").show()
+	
 func _on_join_pressed():
 	if (get_node("ip").get_text() == ""):
 		return

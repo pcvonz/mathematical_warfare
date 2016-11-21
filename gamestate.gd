@@ -25,6 +25,8 @@ func _ready():
 	get_tree().connect("connection_failed", self, "_connected_fail")
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
 
+
+
 func _connected_ok():
 	# Registration of a client beings here, tell everyone that we are here
 	rpc("register_player", get_tree().get_network_unique_id(), player_name)
