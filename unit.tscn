@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=1]
+[gd_scene load_steps=7 format=1]
 
 [ext_resource path="res://unit.gd" type="Script" id=1]
 [ext_resource path="res://circle.png" type="Texture" id=2]
+[ext_resource path="res://particle.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -124,5 +125,9 @@ transform/pos = Vector2( 2.43839, 3.67703 )
 shape = SubResource( 3 )
 trigger = false
 _update_shape_index = 0
+
+[node name="Particles2D" parent="." instance=ExtResource( 3 )]
+
+z/relative = false
 
 

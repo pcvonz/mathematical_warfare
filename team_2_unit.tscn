@@ -10,4 +10,8 @@
 texture = ExtResource( 2 )
 modulate = Color( 0.282549, 0.17952, 0.707031, 1 )
 
+[node name="detect_range" parent="detect"]
+
+transform/pos = Vector2( 24.6523, 29.8793 )
+
 

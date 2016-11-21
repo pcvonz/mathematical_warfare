@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://dust.png" type="Texture" id=1]
+
+[node name="Particles2D" type="Particles2D"]
+
+transform/pos = Vector2( -5.63028, -108.803 )
+transform/rot = -142.37
+config/amount = 299
+config/lifetime = 0.7
+config/emit_timeout = 0.6
+config/emitting = false
+config/texture = ExtResource( 1 )
+params/direction = 0.0
+params/spread = 168.5
+params/linear_velocity = 417.08
+params/spin_velocity = 27.65
+params/orbit_velocity = 1.61
+params/gravity_direction = 0.0
+params/gravity_strength = 2.23
+params/radial_accel = 0.0
+params/tangential_accel = 0.0
+params/damping = 0.0
+params/initial_angle = 0.0
+params/initial_size = 1.0
+params/final_size = 1.0
+params/hue_variation = 0.0
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
+
+

@@ -172,12 +172,15 @@ func fight(body):
 				target = null
 				print("Damage: ", (2+body.force))
 				body.rpc("increase_level", -(2+body.force))
+				get_node("Particles2D").set_emitting(true)
 	else:
 		if body.is_in_group("team_1"):
 			if body.get_travel() < get_travel():
 				target = null
 				print("Damage: ", (2+body.force))
 				body.rpc("increase_level", -(2+body.force))
+				get_node("Particles2D").set_emitting(true)
+				
 				
 remote func on_click():
 	follows_waypoints += 1
