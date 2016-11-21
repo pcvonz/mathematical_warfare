@@ -138,16 +138,14 @@ sync func kill_self():
 			if(i != null and i_ref.get_ref()):
 				if i.has_method("remove_from_dict"):
 					i.remove_from_dict(get_name())
-					add_collision_exception_with(i)
 	else:
 		for i in get_tree().get_nodes_in_group("team_1"):
 			var i_ref = weakref(i)
 			if(i != null and i_ref.get_ref() ):
 				if i.has_method("remove_from_dict"):
-					add_collision_exception_with(i)
-	set_fixed_process(false)
-	get_node("collider").set_trigger(true)
-	hide()
+					i.remove_from_dict(get_name())
+	if self != null:
+		queue_free()
 
 
 func add_enemy(body):
