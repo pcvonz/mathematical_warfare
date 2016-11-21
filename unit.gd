@@ -121,12 +121,16 @@ func remove_from_dict(name):
 sync func kill_self():
 	if(is_in_group("team_1")):
 		for i in get_tree().get_nodes_in_group("team_2"):
-			if i.has_method("remove_from_dict"):
-				i.remove_from_dict(get_name())
+			var i_ref = weakref(i)
+			if(i_ref.get_ref()):
+				if i.has_method("remove_from_dict"):
+					i.remove_from_dict(get_name())
 	else:
 		for i in get_tree().get_nodes_in_group("team_1"):
-			if i.has_method("remove_from_dict"):
-				i.remove_from_dict(get_name())
+			var i_ref = weakref(i)
+			if(i_ref.get_ref()):
+				if i.has_method("remove_from_dict"):
+					i.remove_from_dict(get_name())
 	queue_free()
 
 

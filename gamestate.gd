@@ -19,11 +19,9 @@ signal game_ended()
 signal game_error(what)
 
 func _ready():
-	get_tree().connect("network_peer_connected", self, "_player_connected")
-	get_tree().connect("network_peer_disconnected", self,"_player_disconnected")
 	get_tree().connect("connected_to_server", self, "_connected_ok")
-	get_tree().connect("connection_failed", self, "_connected_fail")
-	get_tree().connect("server_disconnected", self, "_server_disconnected")
+#	get_tree().connect("connection_failed", self, "_connected_fail")
+#	get_tree().connect("server_disconnected", self, "_server_disconnected")
 
 
 
