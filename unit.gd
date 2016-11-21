@@ -64,9 +64,9 @@ func _ready():
 
 func _process(delta):
 	if((follows_waypoints % 4) == 0):
-		get_node("Label").set_text("MOVE")
+		get_node("Sprite").set_modulate(Color(1, 1, 1))
 	else:
-		get_node("Label").set_text("HOLD")
+		get_node("Sprite").set_modulate(Color(.7, .7, .7))
 		
 	power_label.set_text(str(int(power_level.get_value())))
 	force = abs((get_travel().x + get_travel().y) * power_level.get_value())/20
