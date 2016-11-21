@@ -69,6 +69,15 @@ func _process(delta):
 		get_node("Label").set_text("HOLD")
 		
 	power_label.set_text(str(int(power_level.get_value())))
+	force = abs((get_travel().x + get_travel().y) * power_level.get_value())/20
+	
+	#damage tick
+	if target != null:
+		var ref = weakref(target)
+		if ref.get_ref() and get_global_pos().distance_to(target.get_global_pos()) < 10:
+			print("Engaging")
+			fight(target)
+			
 	#todo: incorporate player's commands
 	if get_tree().is_network_server():
 		if not nearby_enemies.empty():
@@ -161,11 +170,13 @@ func fight(body):
 		if body.is_in_group("team_2"):
 			if body.get_travel() < get_travel():
 				target = null
+				print("Damage: ", (2+body.force))
 				body.rpc("increase_level", -(2+body.force))
 	else:
 		if body.is_in_group("team_1"):
 			if body.get_travel() < get_travel():
 				target = null
+				print("Damage: ", (2+body.force))
 				body.rpc("increase_level", -(2+body.force))
 				
 remote func on_click():
