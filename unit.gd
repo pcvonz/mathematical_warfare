@@ -66,7 +66,7 @@ func _process(delta):
 	#todo: incorporate player's commands
 	if get_tree().is_network_server():
 		if not nearby_enemies.empty():
-			print("ENEMY")
+			#print("ENEMY")
 			target = nearby_enemies[nearby_enemies.keys()[0]]
 			var targetref = weakref(target)
 			for i in nearby_enemies.keys():
@@ -81,12 +81,12 @@ func _process(delta):
 				SteeringForce = Steering.seek(targetref, selfref)
 		elif(wp != null and not wp.is_hidden()):
 			var targetref = weakref(wp)
-			SteeringForce = Steering.seek(targetref, selfref)
+			SteeringForce = Steering.seek_slow(targetref, selfref)
 			if(get_global_pos().distance_to(wp.get_global_pos()) < 10):
-				SteeringForce = Steering.seek(selfref, selfref)
+				SteeringForce = Steering.seek_slow(selfref, selfref)
 				wp.hide()
 		else:
-			SteeringForce = Steering.seek(selfref, selfref)
+			SteeringForce = Steering.seek_slow(selfref, selfref)
 		Vehicle.update(delta, SteeringForce)
 		look_at(get_global_pos() - get_travel().normalized())
 		move(Vehicle.velocity)
@@ -109,7 +109,8 @@ sync func increase_level(level_change):
 		
 	
 	power_level.set_value(new_level)
-	self.scale(Vector2(1 + (level_change/50), 1 + (level_change/50)))
+	#print("Scaling: ", 1 + (level_change/50.0), ", ", 1 + (level_change/50.0))
+	self.scale(Vector2(1 + (level_change/50.0), 1 + (level_change/50.0)))
 	mass = new_level
 	max_speed = max_speed / new_level
 

@@ -12,18 +12,15 @@ var max_force
 var velocity
 
 
-#func seek(targetref, objectref):
-#	if(targetref.get_ref() and objectref.get_ref()):
-#		var dist_to = objectref.get_ref().get_global_pos().distance_to(targetref.get_ref().get_global_pos())
-#	
-#		if dist_to > 0:
-#			var speed = dist_to / 2.0
-#			if speed > objectref.get_ref().max_speed:
-#				speed = objectref.get_ref().max_speed
-#			var desired_vec = targetref.get_ref().get_pos() * speed / dist_to
-#			return(desired_vec - objectref.get_ref().get_travel())
-#	return Vector2(0,0)
 func seek(targetref, objectref):
+    if(targetref.get_ref() and objectref.get_ref()):
+        var desired_vec = targetref.get_ref().get_global_pos() - objectref.get_ref().get_global_pos()
+        desired_vec = desired_vec.normalized() * max_speed
+        #return(desired_vec - object.get_linear_velocity())
+        return(desired_vec - objectref.get_ref().get_travel())
+    return Vector2(0,0)
+	
+func seek_slow(targetref, objectref):
 	if(targetref.get_ref() and objectref.get_ref()):
 		var t_ref = targetref.get_ref()
 		var o_ref = objectref.get_ref()
