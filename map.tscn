@@ -3,11 +3,11 @@
 [ext_resource path="res://map.gd" type="Script" id=1]
 [ext_resource path="res://tilemap.tres" type="TileSet" id=2]
 [ext_resource path="res://team_1_unit.tscn" type="PackedScene" id=3]
-[ext_resource path="res://team_2_unit.tscn" type="PackedScene" id=4]
-[ext_resource path="res://water.png" type="Texture" id=5]
-[ext_resource path="res://wall.png" type="Texture" id=6]
-[ext_resource path="res://base_1.tscn" type="PackedScene" id=7]
-[ext_resource path="res://base_2.tscn" type="PackedScene" id=8]
+[ext_resource path="res://water.png" type="Texture" id=4]
+[ext_resource path="res://wall.png" type="Texture" id=5]
+[ext_resource path="res://base_1.tscn" type="PackedScene" id=6]
+[ext_resource path="res://base_2.tscn" type="PackedScene" id=7]
+[ext_resource path="res://team_2_unit.tscn" type="PackedScene" id=8]
 
 [node name="Node2D" type="Node2D"]
 
@@ -48,52 +48,28 @@ transform/pos = Vector2( 3965.79, 1797.7 )
 
 [node name="unit" parent="." instance=ExtResource( 3 )]
 
-[node name="unit6" parent="." instance=ExtResource( 3 )]
-
-transform/pos = Vector2( 352.28, 386.416 )
-
-[node name="unit7" parent="." instance=ExtResource( 3 )]
-
-transform/pos = Vector2( 466.65, 472.89 )
-
-[node name="unit8" parent="." instance=ExtResource( 3 )]
-
-transform/pos = Vector2( 650.757, 486.838 )
-
-[node name="unit9" parent="." instance=ExtResource( 3 )]
-
-transform/pos = Vector2( 801.391, 497.996 )
-
-[node name="unit2" parent="." instance=ExtResource( 4 )]
-
-transform/pos = Vector2( 4083.22, 2091.97 )
-
-[node name="unit3" parent="." instance=ExtResource( 4 )]
-
-transform/pos = Vector2( 4060.9, 1952.49 )
-
-[node name="unit4" parent="." instance=ExtResource( 4 )]
-
-transform/pos = Vector2( 4102.75, 1866.02 )
-
-[node name="unit5" parent="." instance=ExtResource( 4 )]
-
-transform/pos = Vector2( 4192.01, 1804.65 )
+follows_waypoints = 0
 
 [node name="wp_1" type="Sprite" parent="."]
 
-texture = ExtResource( 5 )
+texture = ExtResource( 4 )
 
 [node name="wp_2" type="Sprite" parent="."]
 
-texture = ExtResource( 6 )
+texture = ExtResource( 5 )
 
-[node name="base_1" parent="." instance=ExtResource( 7 )]
+[node name="base_1" parent="." instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 628.964, 274.88 )
 
-[node name="base_2" parent="." instance=ExtResource( 8 )]
+[node name="base_2" parent="." instance=ExtResource( 7 )]
 
 transform/pos = Vector2( 4318.88, 1980.07 )
+
+[node name="unit2" parent="." instance=ExtResource( 8 )]
+
+transform/pos = Vector2( 4062.33, 1717.01 )
+transform/scale = Vector2( 0.2, 0.2 )
+follows_waypoints = 0
 
 

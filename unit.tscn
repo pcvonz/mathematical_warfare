@@ -30,6 +30,7 @@ collision/layers = 1
 collision/mask = 1
 collision/margin = 0.08
 script/script = ExtResource( 1 )
+follows_waypoints = 0
 movement_offset = 1
 max_speed = 20.0
 mass = 0.1
@@ -122,5 +123,22 @@ transform/pos = Vector2( 2.43839, 3.67703 )
 shape = SubResource( 3 )
 trigger = false
 _update_shape_index = 0
+
+[node name="Label" type="Label" parent="."]
+
+rect/scale = Vector2( 5, 5 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 1
+size_flags/stretch_ratio = 20.0
+margin/left = -209.0
+margin/top = -175.0
+margin/right = 27.0
+margin/bottom = -102.0
+text = "FOLLOWING"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 

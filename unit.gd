@@ -15,7 +15,7 @@ var power_level
 var power_label
 var fight_range
 var boredom
-var follows_waypoints
+export var follows_waypoints = 0
 
 export var movement_offset = 1
 
@@ -46,7 +46,6 @@ func _ready():
 	target = null
 	force = 0
 	boredom = 0
-	follows_waypoints = true
 	
 	detect       = get_node("detect")
 	fight_range  = get_node("fight")
@@ -64,6 +63,11 @@ func _ready():
 
 
 func _process(delta):
+	if((follows_waypoints % 4) == 0):
+		get_node("Label").set_text("MOVE")
+	else:
+		get_node("Label").set_text("HOLD")
+		
 	power_label.set_text(str(int(power_level.get_value())))
 	#todo: incorporate player's commands
 	if get_tree().is_network_server():
@@ -81,7 +85,7 @@ func _process(delta):
 			
 			if(targetref.get_ref() and targetref.get_ref().get_type() == "KinematicBody2D"):
 				SteeringForce = Steering.seek(targetref, selfref)
-		elif(wp != null and not wp.is_hidden() and follows_waypoints):
+		elif(wp != null and not wp.is_hidden() and (follows_waypoints % 4) == 0):
 			var targetref = weakref(wp)
 			SteeringForce = Steering.seek_slow(targetref, selfref)
 			if(get_global_pos().distance_to(wp.get_global_pos()) < 10):
@@ -164,7 +168,6 @@ func fight(body):
 				target = null
 				body.rpc("increase_level", -(2+body.force))
 				
-func on_click():
-	print("Clicked")
-	follows_waypoints = !follows_waypoints
+remote func on_click():
+	follows_waypoints += 1
 	
