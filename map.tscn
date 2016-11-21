@@ -49,10 +49,12 @@ transform/pos = Vector2( 3965.79, 1797.7 )
 
 [node name="wp_1" type="Sprite" parent="."]
 
+transform/pos = Vector2( -392.063, -244.666 )
 texture = ExtResource( 4 )
 
 [node name="wp_2" type="Sprite" parent="."]
 
+transform/pos = Vector2( -321.922, -223.045 )
 texture = ExtResource( 4 )
 
 [node name="base_1" parent="." instance=ExtResource( 5 )]
