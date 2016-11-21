@@ -74,7 +74,7 @@ func _process(delta):
 	#damage tick
 	if target != null:
 		var ref = weakref(target)
-		if ref.get_ref() and get_global_pos().distance_to(target.get_global_pos()) < 10:
+		if ref.get_ref() and get_global_pos().distance_to(ref.get_ref().get_global_pos()) < 10:
 			print("Engaging")
 			fight(target)
 			
@@ -86,13 +86,13 @@ func _process(delta):
 			var targetref = weakref(target)
 			for i in nearby_enemies.keys():
 				var i_ref = weakref(nearby_enemies[i])
-				if i_ref.get_ref() and targetref.get_ref():
+				if (i != null and target != null) and (i_ref.get_ref() and targetref.get_ref()):
 					if get_global_pos().distance_to(nearby_enemies[i].get_global_pos()) < get_global_pos().distance_to(nearby_enemies[target.get_name()].get_global_pos()):
 						target = nearby_enemies[i]
 						targetref = weakref(target)
 				
 			
-			if(targetref.get_ref() and targetref.get_ref().get_type() == "KinematicBody2D"):
+			if(target != null and targetref.get_ref() and targetref.get_ref().get_type() == "KinematicBody2D"):
 				SteeringForce = Steering.seek(targetref, selfref)
 		elif(wp != null and not wp.is_hidden() and (follows_waypoints % 4) == 0):
 			var targetref = weakref(wp)
@@ -137,13 +137,13 @@ sync func kill_self():
 	if(is_in_group("team_1")):
 		for i in get_tree().get_nodes_in_group("team_2"):
 			var i_ref = weakref(i)
-			if(i_ref.get_ref()):
+			if(i != null and i_ref.get_ref()):
 				if i.has_method("remove_from_dict"):
 					i.remove_from_dict(get_name())
 	else:
 		for i in get_tree().get_nodes_in_group("team_1"):
 			var i_ref = weakref(i)
-			if(i_ref.get_ref()):
+			if(i != null and i_ref.get_ref() ):
 				if i.has_method("remove_from_dict"):
 					i.remove_from_dict(get_name())
 	queue_free()
