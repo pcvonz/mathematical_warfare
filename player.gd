@@ -65,3 +65,18 @@ func _input(event):
 		get_node(path).show()
 		call(get_global_mouse_pos())
 		
+	if event.is_action_released("select_unit"):
+		click_on_collision_shape()
+
+func click_on_collision_shape():
+	print("click")
+	var mouse_pos = get_global_mouse_pos()
+	var space_state = get_world_2d().get_direct_space_state()
+	var hits = space_state.intersect_point(mouse_pos)
+	if hits.size() != 0:
+		var first_hit = hits[0]
+		print("Keys: ", first_hit.keys())
+		var obj = first_hit["collider"]
+		print(obj)
+		if obj.has_method("on_click"):
+			obj.on_click()

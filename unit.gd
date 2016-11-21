@@ -15,6 +15,7 @@ var power_level
 var power_label
 var fight_range
 var boredom
+var follows_waypoints
 
 export var movement_offset = 1
 
@@ -45,6 +46,7 @@ func _ready():
 	target = null
 	force = 0
 	boredom = 0
+	follows_waypoints = true
 	
 	detect       = get_node("detect")
 	fight_range  = get_node("fight")
@@ -79,7 +81,7 @@ func _process(delta):
 			
 			if(targetref.get_ref() and targetref.get_ref().get_type() == "KinematicBody2D"):
 				SteeringForce = Steering.seek(targetref, selfref)
-		elif(wp != null and not wp.is_hidden()):
+		elif(wp != null and not wp.is_hidden() and follows_waypoints):
 			var targetref = weakref(wp)
 			SteeringForce = Steering.seek_slow(targetref, selfref)
 			if(get_global_pos().distance_to(wp.get_global_pos()) < 10):
@@ -161,3 +163,8 @@ func fight(body):
 			if body.get_travel() < get_travel():
 				target = null
 				body.rpc("increase_level", -(2+body.force))
+				
+func on_click():
+	print("Clicked")
+	follows_waypoints = !follows_waypoints
+	
