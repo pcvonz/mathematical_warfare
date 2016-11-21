@@ -37,10 +37,10 @@ func random_problem():
 func _input(event):
 	if(event.is_action_pressed("ui_accept")):
 		var answer = get_node("LineEdit").get_text()
-		get_node("LineEdit").set_text("")	
-        if (int(answer) == (num_1 + num_2)):
-            random_problem()
-            rpc("add_unit", get_parent().team)
+		get_node("LineEdit").set_text("")
+		if (int(answer) == (num_1 + num_2)):
+			random_problem()
+			rpc("add_unit", get_parent().team)
 
 sync func add_unit(team):
 	var unit
