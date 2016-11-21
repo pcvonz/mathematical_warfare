@@ -12,7 +12,7 @@ var MASS
 var MAX_SPEED
 var MAX_FORCE
 var MAX_TURN_RATE
-var Steering = load("/scripts/steering.gd")
+var Steering = load("res://scripts/steering.gd")
 
 func update(time_elapsed, SteeringForce):
 	#f=ma -> a=f/a
