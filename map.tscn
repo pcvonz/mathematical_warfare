@@ -2,10 +2,10 @@
 
 [ext_resource path="res://map.gd" type="Script" id=1]
 [ext_resource path="res://tilemap.tres" type="TileSet" id=2]
-[ext_resource path="res://team_1_unit.tscn" type="PackedScene" id=3]
-[ext_resource path="res://waypoint.png" type="Texture" id=4]
-[ext_resource path="res://base_1.tscn" type="PackedScene" id=5]
-[ext_resource path="res://base_2.tscn" type="PackedScene" id=6]
+[ext_resource path="res://waypoint.png" type="Texture" id=3]
+[ext_resource path="res://base_1.tscn" type="PackedScene" id=4]
+[ext_resource path="res://base_2.tscn" type="PackedScene" id=5]
+[ext_resource path="res://team_1_unit.tscn" type="PackedScene" id=6]
 [ext_resource path="res://team_2_unit.tscn" type="PackedScene" id=7]
 
 [node name="Node2D" type="Node2D"]
@@ -45,26 +45,28 @@ transform/pos = Vector2( 3965.79, 1797.7 )
 
 [node name="players" type="Node2D" parent="."]
 
-[node name="unit" parent="." instance=ExtResource( 3 )]
-
 [node name="wp_1" type="Sprite" parent="."]
 
-texture = ExtResource( 4 )
+texture = ExtResource( 3 )
 
 [node name="wp_2" type="Sprite" parent="."]
 
-texture = ExtResource( 4 )
+texture = ExtResource( 3 )
 
-[node name="base_1" parent="." instance=ExtResource( 5 )]
+[node name="base_1" parent="." instance=ExtResource( 4 )]
 
 transform/pos = Vector2( 628.964, 274.88 )
 
-[node name="base_2" parent="." instance=ExtResource( 6 )]
+[node name="base_2" parent="." instance=ExtResource( 5 )]
 
 transform/pos = Vector2( 4318.88, 1980.07 )
 
-[node name="unit2" parent="." instance=ExtResource( 7 )]
+[node name="team_1_unit" parent="." instance=ExtResource( 6 )]
 
-transform/pos = Vector2( 4062.33, 1717.01 )
+transform/pos = Vector2( 355.648, 493.927 )
+
+[node name="team_2_unit" parent="." instance=ExtResource( 7 )]
+
+transform/pos = Vector2( 4025.19, 1655.13 )
 
 
