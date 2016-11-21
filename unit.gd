@@ -38,7 +38,6 @@ var spawn_target = null
 func _ready():
 	# Called every time the node is added to the scene.
 	# Initialization here
-	set_process(true)
 	set_fixed_process(true)
 	Vehicle = Vehicle.new(mass, max_speed, max_force, max_turn_rate)
 	Steering = Steering.new(mass, max_speed, max_force, max_turn_rate)
@@ -62,7 +61,7 @@ func _ready():
 	target = null
 
 
-func _process(delta):
+func _fixed_process(delta):
 	if((follows_waypoints % 4) == 0):
 		get_node("Sprite").set_modulate(Color(1, 1, 1))
 	else:
@@ -90,8 +89,7 @@ func _process(delta):
 					if get_global_pos().distance_to(nearby_enemies[i].get_global_pos()) < get_global_pos().distance_to(nearby_enemies[target.get_name()].get_global_pos()):
 						target = nearby_enemies[i]
 						targetref = weakref(target)
-				
-			
+
 			if(target != null and targetref.get_ref() and targetref.get_ref().get_type() == "KinematicBody2D"):
 				SteeringForce = Steering.seek(targetref, selfref)
 		elif(wp != null and not wp.is_hidden() and (follows_waypoints % 4) == 0):
@@ -140,13 +138,16 @@ sync func kill_self():
 			if(i != null and i_ref.get_ref()):
 				if i.has_method("remove_from_dict"):
 					i.remove_from_dict(get_name())
+					add_collision_exception_with(i)
 	else:
 		for i in get_tree().get_nodes_in_group("team_1"):
 			var i_ref = weakref(i)
 			if(i != null and i_ref.get_ref() ):
 				if i.has_method("remove_from_dict"):
-					i.remove_from_dict(get_name())
-	queue_free()
+					add_collision_exception_with(i)
+	set_fixed_process(false)
+	get_node("collider").set_trigger(true)
+	hide()
 
 
 func add_enemy(body):
